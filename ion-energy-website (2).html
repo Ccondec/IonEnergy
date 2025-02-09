@@ -1,0 +1,23 @@
+[Código previo se mantiene igual hasta la sección de contacto...]
+
+    <section class="contact" id="contacto">
+        <div class="contact-content">
+            <h2 class="section-title">Contáctanos</h2>
+            <form class="contact-form" action="https://formsubmit.co/TU-EMAIL@DOMINIO.COM" method="POST">
+                <!-- Campos ocultos para configuración -->
+                <input type="hidden" name="_subject" value="Nuevo contacto de ION ENERGY SAS">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://tudominio.com/gracias.html">
+                <input type="hidden" name="_captcha" value="true">
+                
+                <!-- Campos del formulario -->
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="tel" name="telefono" placeholder="Teléfono">
+                <textarea name="mensaje" placeholder="Mensaje" rows="5" required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+[Resto del código se mantiene igual...]
