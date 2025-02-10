@@ -147,6 +147,51 @@
             color: var(--primary-color);
             margin-bottom: 1rem;
         }
+        
+        /* Supply Section */
+        .supply {
+            padding: 6rem 2rem;
+            background-color: var(--light-color);
+        }
+
+        .supply-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--dark-color);
+        }
+
+        .supply-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .supply-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .supply-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .supply-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .supply-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
 
         /* About Section */
         .about {
@@ -317,6 +362,42 @@
         </div>
     </section>
 
+    <section class="supply" id="suministros">
+        <h2 class="section-title">Nuestros Suministros</h2>
+        <div class="supply-grid">
+            <div class="supply-card">
+                <img src="images/UPS.jpg" alt="sistema UPS">
+                <h3>Sistema UPS</h3>
+                <p>Diseño e instalación de sistemas fotovoltaicos para residencias, comercios e industrias. Maximizamos el aprovechamiento de la energía solar.</p>
+            </div>
+            <div class="supply-card">
+                <img src="images/plantas electricas.jpg" alt="Plantas Electricas">
+                <h3>Plantas Electricas</h3>
+                <p>Auditorías energéticas y soluciones para optimizar el consumo de energía en tu empresa o instalación.</p>
+            </div>
+            <div class="supply-card">
+                <img src="images/trasferenicas-automaticas.jpg" alt="Trasferencias-automaticas">
+                <h3>Trasferencias Automaticas</h3>
+                <p>Sistemas de control y automatización para optimizar procesos industriales y reducir el consumo energético.</p>
+            </div>
+            <div class="supply-card">
+                <img src="images/Fotovoltaico.jpg" alt="Fotovoltaico">
+                <h3>Energias Alternativas</h3>
+                <p>Auditorías energéticas y soluciones para optimizar el consumo de energía en tu empresa o instalación.</p>
+            </div>
+            <div class="supply-card">
+                <img src="images/Baterias.jpg" alt="Baterias">
+                <h3>Baterias</h3>
+                <p>Sistemas de control y automatización para optimizar procesos industriales y reducir el consumo energético.</p>
+            </div>
+            <div class="supply-card">
+                <img src="images/partes-equipos.jpg" alt="partes-equipos">
+                <h3>Partes y Equipos</h3>
+                <p>Sistemas de control y automatización para optimizar procesos industriales y reducir el consumo energético.</p>
+            </div>
+        </div>
+    </section>
+    
     <section class="about" id="nosotros">
         <div class="about-content">
             <div class="about-text">
