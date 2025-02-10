@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - ION ENERGY SAS</title>
+    <style>
+        /* Estilos base y variables */
+        :root {
+            --primary-color: #00796b;
+            --secondary-color: #4db6ac;
+            --accent-color: #ffd700;
+            --dark-color: #263238;
+            --light-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Header y navegación */
+        header {
+            background-color: var(--dark-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        /* Carrito */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Contenedor principal de la tienda */
+        .store-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* Filtros */
+        .filters {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-option input {
+            margin-right: 0.5rem;
+        }
+
+        /* Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-stock {
+            color: #4CAF50;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Carrito desplegable */
+        .cart-dropdown {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            display: none;
+        }
+
+        .cart-dropdown.active {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .cart-total {
+            margin-top: 1rem;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .checkout-button {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .store-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                border-radius: 10px 10px 0 0;
+                padding: 1rem;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .filters.active {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">ION ENERGY SAS</a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#servicios">Servicios</a>
+                <a href="#" class="cart-icon">
+                    🛒 <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="store-container">
+        <aside class="filters">
+            <div class="filter-section">
+                <h3>Categorías</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="solar-panels">
+                    <label for="solar-panels">Paneles Solares</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="inverters">
+                    <label for="inverters">Inversores</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="batteries">
+                    <label for="batteries">Baterías</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="controllers">
+                    <label for="controllers">Controladores</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Precio</h3>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-1">
+                    <label for="price-1">$0 - $500</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-2">
+                    <label for="price-2">$501 - $1000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-3">
+                    <label for="price-3">$1001 - $2000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-4">
+                    <label for="price-4">$2000+</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Marca</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand-1">
+                    <label for="brand-1">SolarTech</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand-2">
+                    <label for="brand-2">PowerMax</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand-3">
+                    <label for="brand-3">EnergyPlus</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="products-grid">
+            <div class="product-card">
+                <img src="images/panel-mono.jpg" alt="Panel Solar Monocristalino" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Panel Solar Monocristalino 400W</h3>
+                    <p>Panel solar de alta eficiencia para instalaciones residenciales</p>
+                    <div class="product-price">$299.99</div>
+                    <div class="product-stock">En stock</div>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/inverter-solar.jpg" alt="Inversor Solar" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Inversor Solar 5kW</h3>
+                    <p>Inversor de alta potencia con garantía de 5 años</p>
+                    <div class="product-price">$899.99</div>
+                    <div class="product-stock">En stock</div>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/battery-lithium.jpg" alt="Batería de Litio" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Batería de Litio 48V 100Ah</h3>
+                    <p>Batería de ciclo profundo para almacenamiento de energía</p>
+                    <div class="product-price">$1,499.99</div>
+                    <div class="product-stock">En stock</div>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/controller-mppt.jpg" alt="Controlador MPPT" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Controlador MPPT 60A</h3>
+                    <p>Controlador de carga solar con tecnología MPPT</p>
+                    <div class="product-price">$399.99</div>
+                    <div class="product-stock">En stock</div>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="cart-dropdown">
+        <h3>Carrito de Compras</h3>
+        <div class="cart-items">
+            <!-- Los items del carrito se agregarán dinámicamente -->
+        </div>
+        <div class="cart-total">
+            Total: $0.00
+        </div>
+        <button class="checkout-button">Proceder al pago</button>
+    </div>
+
+    <script>
+        // Funcionalidad del carrito
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartDropdown = document.querySelector('.cart-dropdown');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        let cartCount = 0;
+
+        cartIcon.addEventListener('click', () => {
+            cartDropdown.classList.toggle('active');
+        });
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                cartCount++;
+                document.querySelector('.cart-count').textContent = cartCount;
+                
+                // Aquí puedes agregar la lógica para añadir productos al carrito
+                const product = button.closest('.product-card');
+                const productName = product.querySelector('.product-title').textContent;
+                const productPrice = product.querySelector('.product-price').textContent;
+                
+                alert(`${productName} añadido al carrito`);
+            });
+        });
+    </script>
+</body>
+</html>
