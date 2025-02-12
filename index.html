@@ -192,6 +192,62 @@
             color: var(--primary-color);
             margin-bottom: 1rem;
         }
+
+        /* carousel sectionl*/
+        .carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 100%;
+            height: 400px;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .prev-button {
+            left: 10px;
+        }
+        .next-button {
+            right: 10px;
+        }
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .carousel-dot.active {
+            background-color: white;
+        }
         
         /* About Section */
         .about {
@@ -415,7 +471,106 @@
         </div>
     </section>
     
-    <section class="about" id="nosotros">
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="/api/placeholder/800/400?text=Imagem+1" alt="Imagem 1">
+            </div>
+            <div class="carousel-item">
+                <img src="/api/placeholder/800/400?text=Imagem+2" alt="Imagem 2">
+            </div>
+            <div class="carousel-item">
+                <img src="/api/placeholder/800/400?text=Imagem+3" alt="Imagem 3">
+            </div>
+        </div>
+        <button class="carousel-button prev-button">&#10094;</button>
+        <button class="carousel-button next-button">&#10095;</button>
+        <div class="carousel-dots">
+        </div>
+
+         <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel-inner');
+            const prevButton = document.querySelector('.prev-button');
+            const nextButton = document.querySelector('.next-button');
+            const items = document.querySelectorAll('.carousel-item');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            let currentIndex = 0;
+            let autoplayInterval;
+
+            // Criar pontos de navegação
+            items.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.carousel-dot');
+
+            function showNextSlide() {
+                currentIndex++;
+                if (currentIndex >= items.length) {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+            }
+
+            function showPrevSlide() {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = items.length - 1;
+                }
+                updateCarousel();
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            function updateCarousel() {
+                const offset = -currentIndex * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+                
+                // Atualizar pontos ativos
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function startAutoplay() {
+                autoplayInterval = setInterval(showNextSlide, 3000); // Muda a cada 3 segundos
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            // Eventos de navegação
+            nextButton.addEventListener('click', () => {
+                showNextSlide();
+                stopAutoplay();
+                startAutoplay();
+            });
+
+            prevButton.addEventListener('click', () => {
+                showPrevSlide();
+                stopAutoplay();
+                startAutoplay();
+            });
+
+            // Pausar autoplay quando o mouse estiver sobre o carrossel
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+
+            // Iniciar autoplay
+            startAutoplay();
+        });
+    </script>
+        
+    </div>    <section class="about" id="nosotros">
         <div class="about-content">
             <div class="about-text">
                 
