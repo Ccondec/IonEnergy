@@ -28,6 +28,7 @@
             position: fixed;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         nav {
@@ -36,6 +37,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 1rem;
         }
 
         .logo {
@@ -45,18 +47,38 @@
             font-size: 1.5rem;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
         /* Carrito */
         .cart-icon {
-            position: relative;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
+        .cart-icon:hover {
+            background-color: var(--secondary-color);
+        }
+        
         .cart-count {
             position: absolute;
             top: -8px;
@@ -249,8 +271,11 @@
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
                 <a href="index.html#servicios">Servicios</a>
+                <a href="index.html#suministros">Suministros</a>
+                <a href="index.html#nosotros">Nosotros</a>
+                <a href="index.html#contacto">Contacto</a>
                 <a href="#" class="cart-icon">
-                    🛒 <span class="cart-count">0</span>
+                    🛒 Carrito <span class="cart-count">0</span>
                 </a>
             </div>
         </nav>
