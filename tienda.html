@@ -444,12 +444,15 @@
         <div class="cart-items">
             <!-- Los items del carrito se agregarán dinámicamente -->
         </div>
+    <div class="cart-summary">
         <div class="cart-total">
-            Total: $0.00
+            <strong>Total:</strong> <span id="cart-total">$0.00</span>
         </div>
-        <button class="checkout-button">Proceder al pago</button>
+        <button class="checkout-button" onclick="checkout()">Proceder al pago</button>
     </div>
+</div>
 
+<script>
     <script>
         // Funcionalidad del carrito
         const cartIcon = document.querySelector('.cart-icon');
