@@ -70,7 +70,33 @@
             text-decoration: none;
             margin-left: 2rem;
         }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
 
+        .search-container {
+            position: relative;
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            font-size: 0.9rem;
+            padding-right: 2.5rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }       
+        
         /* Carrito */
         .cart-icon {
             position: relative;
@@ -114,16 +140,22 @@
         .filter-section h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .filter-option {
             display: flex;
             align-items: center;
             margin-bottom: 0.5rem;
+            cursor: pointer;
         }
 
         .filter-option input {
             margin-right: 0.5rem;
+            cursor: pointer;
         }
 
         /* Productos */
