@@ -211,7 +211,6 @@
         .carousel-track {
             display: flex;
             gap: 15px;
-            transition: transform 0.5s ease-in-out;
         }
 
         .carousel-item {
@@ -532,63 +531,69 @@
             const items = document.querySelectorAll('.carousel-item');
             const prevButton = document.querySelector('.prev-button');
             const nextButton = document.querySelector('.next-button');
-            
-            let position = 0;
-            const itemWidth = items[0].offsetWidth + 15; // width + gap
-            const visibleItems = Math.floor(track.offsetWidth / itemWidth);
-            const maxPosition = -(items.length - visibleItems) * itemWidth;
-            
-            let autoplayInterval;
 
-            function moveCarousel(direction) {
-                if (direction === 'next') {
-                    position -= itemWidth;
-                    if (position < maxPosition) {
-                        position = 0;
+            // Clonar elementos para el efecto infinito
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            // Configuración de la animación
+            let currentPosition = 0;
+            const speed = 1; // píxeles por frame
+            let animationId;
+            let isPaused = false;
+
+            function animate() {
+                if (!isPaused) {
+                    currentPosition -= speed;
+                    const itemWidth = items[0].offsetWidth + 15; // width + gap
+                    const totalWidth = itemWidth * items.length;
+
+                    // Reiniciar posición cuando se ha desplazado un conjunto completo
+                    if (-currentPosition >= totalWidth) {
+                        currentPosition = 0;
                     }
-                } else {
-                    position += itemWidth;
-                    if (position > 0) {
-                        position = maxPosition;
-                    }
+
+                    track.style.transform = `translateX(${currentPosition}px)`;
                 }
-                track.style.transform = `translateX(${position}px)`;
+                animationId = requestAnimationFrame(animate);
             }
 
-            function startAutoplay() {
-                autoplayInterval = setInterval(() => {
-                    moveCarousel('next');
-                }, 2000);
+            function startAnimation() {
+                isPaused = false;
             }
 
-            function stopAutoplay() {
-                clearInterval(autoplayInterval);
+            function pauseAnimation() {
+                isPaused = true;
             }
 
-            // Controles manuales
+            // Iniciar animación
+            animate();
+
+            // Eventos de los botones
             prevButton.addEventListener('click', () => {
-                moveCarousel('prev');
-                stopAutoplay();
-                startAutoplay();
+                currentPosition += 100;
+                if (currentPosition > 0) {
+                    currentPosition = -(items[0].offsetWidth + 15) * (items.length - 1);
+                }
             });
 
             nextButton.addEventListener('click', () => {
-                moveCarousel('next');
-                stopAutoplay();
-                startAutoplay();
+                currentPosition -= 100;
+                const maxScroll = -(items[0].offsetWidth + 15) * (items.length - 1);
+                if (currentPosition < maxScroll) {
+                    currentPosition = 0;
+                }
             });
 
             // Pausar en hover
-            track.addEventListener('mouseenter', stopAutoplay);
-            track.addEventListener('mouseleave', startAutoplay);
+            track.addEventListener('mouseenter', pauseAnimation);
+            track.addEventListener('mouseleave', startAnimation);
 
-            // Iniciar autoplay
-            startAutoplay();
-
-            // Responsive handling
-            window.addEventListener('resize', () => {
-                position = 0;
-                track.style.transform = `translateX(${position}px)`;
+            // Limpiar animación cuando se desmonte
+            window.addEventListener('beforeunload', () => {
+                cancelAnimationFrame(animationId);
             });
         });
     </script>
